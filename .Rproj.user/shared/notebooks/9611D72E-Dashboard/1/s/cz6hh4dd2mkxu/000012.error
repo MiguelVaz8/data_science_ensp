@@ -1,0 +1,1 @@
+{"frames":[],"message":"Error: unexpected symbol in:\n\"  hc_xAxis(categories = format(hypoxia_sum)) %>% \n  hc_yAxis(title = list(text = \"Doentes\"\n"}

@@ -1,0 +1,248 @@
+---
+title: "chat gpt"
+format: html
+editor: visual
+---
+
+
+
+```{r}
+rm(list = ls(all.names = TRUE)) # limpa todos os objetos, incluindo os ocultos
+```
+
+```{r}
+# Load necessary libraries
+library(ggplot2)  # For data visualization
+library(dplyr)    # For data manipulation
+
+# Load the Iris dataset (a publicly available dataset in R)
+data(iris)
+
+# Prepare the data: We'll create a summary table with the mean values for each species
+summary_data <- iris %>%
+  group_by(Species) %>%
+  summarise(
+    Sepal.Length = mean(Sepal.Length),
+    Sepal.Width = mean(Sepal.Width),
+    Petal.Length = mean(Petal.Length),
+    Petal.Width = mean(Petal.Width)
+  )
+
+# Create a spider plot
+spider_plot <- ggplot(summary_data, aes(x = factor(Species))) +
+  geom_polygon(aes(y = Sepal.Length, group = 1), fill = "blue", alpha = 0.5) +
+  geom_polygon(aes(y = Sepal.Width, group = 1), fill = "green", alpha = 0.5) +
+  geom_polygon(aes(y = Petal.Length, group = 1), fill = "red", alpha = 0.5) +
+  geom_polygon(aes(y = Petal.Width, group = 1), fill = "purple", alpha = 0.5) +
+  
+  # Customize the plot
+  theme_minimal() +
+  labs(
+    title = "Spider Plot of Iris Data",
+    subtitle = "Mean measurements for Sepal Length, Sepal Width, Petal Length, and Petal Width",
+    x = "Species",
+    y = "Mean Value"
+  ) +
+  coord_polar(start = 0) +  # Make it a spider plot
+  
+  # Adjust the axis limits
+  ylim(0, 4) +
+  
+  # Add legend
+  scale_fill_manual(values = c("blue", "green", "red", "purple"),
+                    name = "Measurement",
+                    labels = c("Sepal Length", "Sepal Width", "Petal Length", "Petal Width"))
+
+# Display the spider plot
+print(spider_plot)
+
+```
+
+
+```{r}
+# Load necessary libraries
+library(ggplot2)  # For data visualization
+library(dplyr)    # For data manipulation
+
+# Load the mtcars dataset (a publicly available dataset in R)
+data(mtcars)
+
+# Prepare the data: We'll create a summary table with the mean values for each car brand
+summary_data <- mtcars %>%
+  group_by(car_brand = rownames(mtcars)) %>%
+  summarise(
+    mpg = mean(mpg),
+    hp = mean(hp),
+    wt = mean(wt),
+    qsec = mean(qsec)
+  ) %>%
+  arrange(car_brand)
+
+# Create a spider plot
+spider_plot <- ggplot(summary_data, aes(x = factor(car_brand))) +
+  geom_polygon(aes(y = mpg, group = 1), fill = "blue", alpha = 0.5) +
+  geom_polygon(aes(y = hp, group = 1), fill = "green", alpha = 0.5) +
+  geom_polygon(aes(y = wt, group = 1), fill = "red", alpha = 0.5) +
+  geom_polygon(aes(y = qsec, group = 1), fill = "purple", alpha = 0.5) +
+  
+  # Customize the plot
+  theme_minimal() +
+  labs(
+    title = "Spider Plot of Car Attributes",
+    subtitle = "Mean values for MPG, HP, Weight (wt), and Quarter Mile Time (qsec)",
+    x = "Car Brand",
+    y = "Mean Value"
+  ) +
+  coord_polar(start = 0) +  # Make it a spider plot
+  
+  # Adjust the axis limits
+  ylim(0, 30) +
+  
+  # Add legend
+  scale_fill_manual(values = c("blue", "green", "red", "purple"),
+                    name = "Attribute",
+                    labels = c("MPG", "HP", "Weight (wt)", "Quarter Mile Time (qsec)"))
+
+# Display the spider plot
+print(spider_plot)
+
+```
+
+```{r}
+# Load necessary libraries
+library(ggplot2)  # For data visualization
+library(dplyr)    # For data manipulation
+
+# Load the Iris dataset (a publicly available dataset in R)
+data(iris)
+
+# Selecting the relevant columns for clustering
+iris_data <- iris[, c("Sepal.Length", "Sepal.Width")]
+
+# Perform k-means clustering with 3 clusters
+set.seed(123)  # For reproducibility
+k <- 3
+kmeans_result <- kmeans(iris_data, centers = k)
+
+# Add cluster assignments to the original dataset
+iris_clustered <- iris %>%
+  mutate(Cluster = as.factor(kmeans_result$cluster))
+
+# Create a scatter plot with points colored by cluster
+cluster_plot <- ggplot(iris_clustered, aes(x = Sepal.Length, y = Sepal.Width, color = Cluster)) +
+  geom_point(size = 3) +
+  
+  # Customize the plot
+  theme_minimal() +
+  labs(
+    title = "K-Means Clustering of Iris Sepal Data",
+    x = "Sepal Length",
+    y = "Sepal Width"
+  ) +
+  
+  # Add legend
+  scale_color_manual(values = c("1" = "red", "2" = "blue", "3" = "green"))
+
+# Display the clustering plot
+print(cluster_plot)
+
+```
+
+```{r}
+# Load necessary libraries
+library(ggplot2)  # For data visualization
+
+# Load the mtcars dataset (a publicly available dataset in R)
+data(mtcars)
+
+# Select variables for the Vitruvian graphic (e.g., MPG, HP, and wt)
+variables_to_plot <- c("mpg", "hp", "wt")
+
+# Create a dataframe with selected variables
+vitruvian_data <- mtcars[, variables_to_plot]
+
+# Normalize the data to fit within a circle
+normalized_data <- data.frame(
+  variable = rep(variables_to_plot, each = nrow(mtcars)),
+  value = as.vector(scale(vitruvian_data))
+)
+
+# Create the Vitruvian Man graphic
+vitruvian_plot <- ggplot(normalized_data, aes(x = cos(2 * pi * variable), y = sin(2 * pi * variable))) +
+  geom_point(aes(size = abs(value), color = variable), alpha = 0.7) +
+  
+  # Customize the plot
+  theme_void() +
+  labs(
+    title = "Vitruvian Man-Inspired Graphic of Car Attributes",
+    subtitle = "Variables: MPG, HP, and Weight (wt)"
+  ) +
+  scale_size_continuous(range = c(2, 10)) +
+  scale_color_manual(values = c("mpg" = "blue", "hp" = "red", "wt" = "green"))
+
+# Display the Vitruvian graphic
+vitruvian_plot
+
+```
+
+```{r}
+install.packages("rworldmap")
+library(rworldmap)
+library(ggplot2)
+library(dplyr)
+
+```
+
+```{r}
+# Crie um mapa de Portugal usando rworldmap
+map <- getMap(resolution = "coarse")
+
+# Crie um dataframe de exemplo com cores aleatórias por distrito
+set.seed(123)  # Para cores consistentes
+district_data <- data.frame(
+  ID = unique(map$ISO2),
+  random_color = sample(colors(), length(unique(map$ISO2)), replace = TRUE)
+)
+
+# Junte o dataframe de cores com o mapa
+map_data <- merge(map, district_data, by.x = "ISO2", by.y = "ID")
+
+# Crie o gráfico
+ggplot(map_data) +
+  geom_polygon(aes(x = long, y = lat, group = group, fill = random_color)) +
+  scale_fill_identity() +
+  theme_void() +
+  labs(
+    title = "Mapa de Portugal com Cores Aleatórias por Distrito",
+    fill = "Distrito"
+  ) +
+  theme(plot.title = element_text(hjust = 0.5, size = 18))
+
+```
+```{r}
+# Instale e carregue os pacotes necessários
+install.packages("sf")
+library(sf)
+library(ggplot2)
+
+# Baixe dados geoespaciais de distritos portugueses (exemplo)
+# Substitua 'seu_arquivo_shapefile.shp' pelo caminho do seu próprio arquivo shapefile
+# Certifique-se de que o arquivo shapefile contenha dados dos distritos e cores apropriadas
+shapefile_path <- "seu_arquivo_shapefile.shp"
+distritos <- st_read(shapefile_path)
+
+# Visualize os dados dos distritos (opcional)
+# head(distritos)
+
+# Crie um gráfico de distritos com cores diferentes
+ggplot(data = distritos) +
+  geom_sf(aes(fill = sua_variavel_de_cores)) +
+  scale_fill_manual(values = cores_desejadas) +  # Substitua cores_desejadas pelas cores que você deseja usar
+  labs(
+    title = "Mapa de Portugal por Distrito",
+    fill = "Distrito"
+  ) +
+  theme_minimal()
+
+```
+

@@ -1,0 +1,2 @@
+"0","rm(list = ls(all.names = TRUE)) # limpa todos os objetos, incluindo os oculto"
+"0",""

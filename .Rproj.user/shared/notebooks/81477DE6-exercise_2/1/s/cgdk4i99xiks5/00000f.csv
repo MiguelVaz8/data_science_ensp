@@ -1,0 +1,6 @@
+"0",""
+"0","#arruma a casa o tidy"
+"0",""
+"0","model1_tidy <- tidy(model1, conf.int = TRUE)"
+"2","Warning: NaNs produced"
+"0","model1_tidy"

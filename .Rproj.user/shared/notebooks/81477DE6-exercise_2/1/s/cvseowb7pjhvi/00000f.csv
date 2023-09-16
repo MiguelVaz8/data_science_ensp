@@ -1,0 +1,7 @@
+"0","summarise <- data_1 %>%"
+"0","  group_by(female) %>%"
+"0","  summarise("
+"0","    mean=mean(bmi),"
+"0","    sd =sd(bmi)"
+"0",")"
+"0",""

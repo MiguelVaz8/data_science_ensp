@@ -1,0 +1,13 @@
+"0","library(highcharter)"
+"0",""
+"0","highchart() %>% "
+"0","  hc_chart(type = ""column"") %>% "
+"0","  hc_add_theme(hc_theme_smpl()) %>% "
+"0","  hc_title(text = ""Doentes saídos dos hospitais em Portugal"") %>% "
+"0","  hc_subtitle(text = ""Fonte: Ministério da Saúde"") %>% "
+"0","  hc_xAxis(categories = format(hypoxia_sum)) %>% "
+"0","  hc_yAxis(title = list(text = ""Doentes saídos (Mensal)"")) %>% "
+"2","Error: unexpected symbol in:
+""  hc_xAxis(categories = format(hypoxia_sum)) %>% 
+  hc_yAxis(title = list(text = ""Doentes""
+"

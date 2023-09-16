@@ -1,0 +1,5 @@
+"0",""
+"0","model2 <- lm(cpap~ as.factor(smoking_yesno), data= hypoxia)"
+"0",""
+"0","model2_tidy <- tidy(model2, conf.int = TRUE)"
+"0","model2_tidy"

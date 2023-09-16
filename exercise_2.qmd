@@ -1,0 +1,262 @@
+---
+title: "Exercise_2"
+author: "Miguel Vaz"
+date: today
+date-format: long
+format:
+  html:
+    toc: true
+    toc-location: left
+execute:
+  warning: false
+title-block-style: default
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse    = TRUE,
+  warning     = FALSE, # Mostrar ou não avisos
+  message     = FALSE, # Mostrar ou não mensagens
+  echo        = TRUE,  # Queremos ver o código neste caso
+  eval        = TRUE   # Se o código deve ser avaliado e os resultados incluídos
+  )
+```
+
+```{r}
+rm(list = ls(all.names = TRUE)) # limpa todos os objetos, incluindo os oculto
+```
+
+
+```{r}
+set.seed(123)
+```
+
+
+```{r}
+
+library(janitor)
+library(tidyverse)
+library(readxl)
+library(lubridate)
+library(data.table)
+library(here)
+library(haven)
+library(broom)
+library(MLDataR)
+library(readr)
+library(broom)
+library(janitor)
+library(kableExtra)
+library(gapminder)
+library(gt)
+```
+
+
+```{r}
+
+hypoxia <- read_excel("data/hypoxia.xlsx")
+
+View(hypoxia)
+
+hypoxia <- clean_names(hypoxia)  # este é muito importante para limpar maiusculas e assim...
+
+
+```
+
+```{r}
+
+data <- hypoxia %>%
+  select(
+    iv_morphine_eq, 
+    age, 
+    female,
+    bmi,
+    smoking,
+    propofol_induction,
+    crystalloids,
+    colloids,
+    min_sao2,
+    race,
+    sleeptime
+  ) 
+
+view(data)
+
+```
+
+```{r}
+data <- data %>%
+  filter(
+    age>25
+)
+
+```
+
+```{r}
+data_1 <- data %>%
+  mutate(
+    sum = crystalloids+ colloids
+)
+
+```
+
+```{r}
+summarise <- data_1 %>%
+  group_by(female) %>%
+  summarise(
+    mean=mean(bmi),
+    sd =sd(bmi)
+)
+
+```
+
+```{r}
+summarize_2 = data_1 %>%
+  group_by (smoking) %>%
+  summarise(
+    mean=mean(propofol_induction),
+    sd=sd(propofol_induction))
+
+
+```
+
+```{r}
+municipio = read_excel("data/municípios.xlsx")
+
+#ou municipio = read_excel(here("data","municípios.xlsx")
+
+municipio <- clean_names(municipio)
+
+```
+
+```{r}
+municip = municipio %>%
+  rename(
+  municipality=municipio
+)
+```
+
+
+```{r}
+agg = left_join(
+  hypoxia,
+  municip,
+  by = "municipality"
+) %>%
+  group_by(nuts_2,female) %>%
+  summarise(
+    count= n()
+  )
+```
+
+```{r}
+p <- ggplot(data= data, 
+            aes(x = min_sao2, y = bmi)) +
+  geom_boxplot()
+p
+```
+```{r}
+p <- ggplot(data= data, 
+            aes(x = min_sao2, y = bmi)) +
+  geom_point()
+p
+```
+
+```{r}
+data <- hypoxia %>%
+  mutate(
+    female=factor(diabetes, labels=c("female", "male"))
+  )
+```
+
+
+
+```{r}
+p <- ggplot(data= data, 
+            aes(x = min_sao2, y = bmi)) +
+  geom_point()+
+  facet_wrap(~female)
+
+p
+```
+
+
+```{r}
+p <- ggplot(data= data, 
+            aes(x = min_sao2, y = bmi)) +
+  geom_point()+
+  facet_wrap(~female)+
+  labs(title = "Number of-....",
+         subtitle = "2015-2022",
+         caption = "Source: Ministry of Health, Portugal")
+
+p
+```
+
+
+
+
+
+
+```{r}
+data_plot <- hypoxia %>%
+  mutate(
+    diabetes=factor(diabetes, labels=c("Sem diabetes", "Com diabetes"))
+  )
+
+view (data_plot)
+```
+
+```{r}
+
+model1 <- lm(cpap~ age + bmi + sleeptime+ as.factor(female)+ as.factor(race) + as.factor(sleeptime), data= hypoxia)
+
+summary(model1)
+
+```
+
+
+```{r}
+
+#arruma a casa - o tidy
+
+model1_tidy <- tidy(model1, conf.int = TRUE)
+model1_tidy
+
+# Inspect the model 
+model1_glance <-glance(model1)
+model1_glance
+```
+
+```{r}
+model1_augment <- augment(model1)
+model1_augment
+```
+
+
+```{r}
+#para regressão logistica precisamos de especificar qual a familia que vamos utilizar 
+
+model2_logit <- glm(
+  cpap ~ age + bmi + sleeptime+ as.factor(female)+ as.factor(race) + as.factor(female), family="binomial",
+  data= hypoxia)
+
+model2_logit<- tidy(model3_logit, exponentiate = TRUE, conf.int = TRUE)
+
+```
+
+```{r}
+#install.packages("performance")
+library(performance)
+
+```
+
+```{r}
+check_model(model1)
+
+check_model
+```
+

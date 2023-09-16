@@ -1,0 +1,3 @@
+"0",""
+"0","# Inspect the model "
+"0","model1_glance <-glance(model1)"

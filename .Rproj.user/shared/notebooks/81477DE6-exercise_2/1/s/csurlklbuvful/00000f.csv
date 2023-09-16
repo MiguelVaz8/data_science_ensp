@@ -1,0 +1,4 @@
+"0","data <- hypoxia %>%"
+"0","  mutate("
+"0","    female=factor(diabetes, labels=c(""female"", ""male""))"
+"0","  )"

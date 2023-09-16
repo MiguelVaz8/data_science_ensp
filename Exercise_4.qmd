@@ -1,0 +1,40 @@
+---
+title: "Exercise_4"
+author: "Miguel Vaz"
+date: today
+date-format: long
+format:
+  html:
+    smooth-scroll: true
+    self-contained: true
+    toc: true
+    toc-location: left
+theme: cosmo
+smooth-scroll: true
+execute:
+  warning: false
+project:
+  output-dir: outputs/documents
+---
+
+```{r}
+
+library(tidyverse)
+library(ggplot2)
+library(ggthemes)
+library(scales)
+library(patchwork)
+library(sf)
+library(rgeos)
+
+```
+
+```{r}
+rm(list = ls(all.names = TRUE)) # limpa todos os objetos, incluindo os oculto
+
+```
+
+```{r}
+hypoxia <- read_excel (here("data"))
+```
+

@@ -1,0 +1,7 @@
+"0","knitr::opts_chunk$set("
+"0","  collapse    = TRUE,"
+"0","  warning     = FALSE, # Mostrar ou não avisos"
+"0","  message     = FALSE, # Mostrar ou não mensagens"
+"0","  echo        = TRUE,  # Queremos ver o código neste caso"
+"0","  eval        = TRUE   # Se o código deve ser avaliado e os resultados incluídos"
+"0","  )"

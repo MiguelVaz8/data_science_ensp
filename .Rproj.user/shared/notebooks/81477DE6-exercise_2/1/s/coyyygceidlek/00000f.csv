@@ -1,0 +1,7 @@
+"0","#para regressão logistica precisamos de especificiar qual oa familia que vamos utilizar "
+"0",""
+"0","model3_logit <- glm(cpap~ as.factor(age)+ as.factor(female)+ as.factor(bmi) + as.factor(sleeptime), family=""binomial"", data= hypoxia)"
+"2","Warning: glm.fit: algorithm did not converge"
+"0","model3_logit<- tidy(model_logit, exponentiate=True, conf.int=True)"
+"2","Error: object 'model_logit' not found
+"

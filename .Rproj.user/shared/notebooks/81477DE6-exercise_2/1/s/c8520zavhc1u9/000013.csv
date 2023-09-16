@@ -1,0 +1,4 @@
+"0","p <- ggplot(data= data, "
+"0","            aes(x = min_sao2, y = bmi)) +"
+"0","  geom_point()"
+"0","p"

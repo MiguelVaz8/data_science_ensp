@@ -1,0 +1,6 @@
+"0","municipio = read_excel(""data/municípios.xlsx"")"
+"0",""
+"0","#ou municipio = read_excel(here(""data"",""municípios.xlsx"")"
+"0",""
+"0","municipio <- clean_names(municipio)"
+"0",""

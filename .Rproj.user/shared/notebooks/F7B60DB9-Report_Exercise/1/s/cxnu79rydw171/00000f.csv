@@ -1,0 +1,7 @@
+"0",""
+"0","sum_cases = hypoxia%>%"
+"0","  summarise("
+"0","    sum__cases=n()"
+"0","  )"
+"0",""
+"0","view(sum_cases)"

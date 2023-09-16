@@ -1,0 +1,32 @@
+{
+    "sources": [
+        {
+            "author": [
+                {
+                    "family": "Vaz",
+                    "given": "Miguel"
+                },
+                {
+                    "family": "Silvestre",
+                    "given": "Samuel"
+                }
+            ],
+            "container-title": "European journal of pharmacology",
+            "id": "vaz2020alzheimer",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "page": "173554",
+            "publisher": "Elsevier",
+            "title": "Alzheimer’s disease: Recent treatment strategies",
+            "title-short": "Alzheimer’s disease",
+            "type": "article-journal",
+            "volume": "887"
+        }
+    ],
+    "project_biblios": []
+}

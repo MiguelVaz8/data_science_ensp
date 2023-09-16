@@ -1,0 +1,12 @@
+---
+title: "exercise1_doc"
+format: docx
+editor: visual
+bibliography: reference.bib
+---
+
+dfsjkbsdgfs
+
+Refrence
+
+\[\@vaz2020alzheimer\]

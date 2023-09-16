@@ -1,0 +1,7 @@
+"0","mean_age = hypoxia %>%"
+"0","  summarise("
+"0","    mean=mean(age)"
+"0","  )"
+"0",""
+"0","view(mean_age)"
+"0",""

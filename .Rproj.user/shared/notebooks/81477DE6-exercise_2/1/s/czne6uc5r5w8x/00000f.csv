@@ -1,0 +1,6 @@
+"0","data_plot <- hypoxia %>%"
+"0","  mutate("
+"0","    diabetes=factor(diabetes, labels=c(""Sem diabetes"", ""Com diabetes""))"
+"0","  )"
+"0",""
+"0","view (data_plot)"

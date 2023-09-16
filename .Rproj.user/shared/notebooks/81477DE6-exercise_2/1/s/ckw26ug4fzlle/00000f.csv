@@ -1,0 +1,7 @@
+"0","summarize_2 = data_1 %>%"
+"0","  group_by (smoking) %>%"
+"0","  summarise("
+"0","    mean=mean(propofol_induction),"
+"0","    sd=sd(propofol_induction))"
+"0",""
+"0",""

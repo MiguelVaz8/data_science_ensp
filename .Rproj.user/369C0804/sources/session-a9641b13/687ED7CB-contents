@@ -1,0 +1,131 @@
+---
+title: "ENSP | `r format(Sys.time(),'%d %b %y-%H:%m')`"
+knit: (function(input_file, encoding) {
+  out_dir <- 'docs';
+  rmarkdown::render(input_file,
+ encoding=encoding,
+ output_file=file.path(dirname(input_file), out_dir, 'index.html'))})
+output: 
+  flexdashboard::flex_dashboard:
+    theme: lumen
+    orientation: rows
+    social: [ "twitter", "facebook", "menu" ]
+    navbar:
+      - { title: "Sobre", href:"https://www.ensp.unl.pt/cursos/"}
+---
+
+```{=html}
+<style>                     
+.navbar {
+  background-color:"#fdbe85";
+  border-color:grey;
+}
+.navbar-brand {
+color:black!important;
+}
+</style>
+```
+
+```{r setup, include=FALSE}
+
+library(flexdashboard)
+library(tidyverse)
+library(janitor)
+library(readxl)
+
+```
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  echo = FALSE,
+  eval = TRUE
+  )
+
+set.seed(1) # Set the seed is important for getting reproducible reports 
+## Clean the envorment 
+rm(list=ls())
+options(scipen=4)
+```
+
+```{r}
+hypoxia <- read_excel("data/hypoxia.xlsx")
+
+hypoxia <- clean_names(hypoxia)
+```
+
+
+```{r}
+hypoxia_mean <- hypoxia %>%
+  summarise(mean = round(mean(age), 4))
+```
+
+```{r}
+
+hypoxia_2 = hypoxia%>%
+  summarise(
+    sum__cases=n()
+  )
+
+```
+
+# Hypoxia
+
+## Row
+
+### Mean Age
+
+```{r}
+x1 <- hypoxia_mean
+
+valueBox(x1, 
+         icon = "fa-file-medical",
+         color="#fdd49e")
+
+```
+
+### Cases
+
+```{r}
+x2 <- hypoxia_2
+
+valueBox(x2, 
+         icon = "heartbeat",
+         color="#0073e6")
+```
+
+## Row {.tabset .tabset-fade}
+
+```{r}
+hypoxia_sum <- hypoxia %>% 
+  group_by(municipality) %>% 
+  summarise(iv_morphine_eq=sum(iv_morphine_eq, na.rm = TRUE)
+  )
+```
+
+### Doentes saídos
+
+```{r}
+library(highcharter)
+
+highchart() %>% 
+  hc_chart(type = "column") %>% 
+  hc_add_theme(hc_theme_smpl()) %>% 
+  hc_title(text = "Doentes saídos dos hospitais em Portugal") %>% 
+  hc_subtitle(text = "Fonte: Ministério da Saúde") %>% 
+  hc_xAxis(categories = format(hypoxia_sum)) %>% 
+  hc_yAxis(title = list(text = "Doentes saídos (Mensal)")) %>% 
+  hc_add_series(data = hypoxia_sum$municipality,
+                name = "Doentes saídos", color = "#e6550d") %>% 
+  hc_exporting(
+    enabled = TRUE # podemos fazer download de jpeg,....
+  )
+```
+
+
+
+
+### Doentes saídos
+

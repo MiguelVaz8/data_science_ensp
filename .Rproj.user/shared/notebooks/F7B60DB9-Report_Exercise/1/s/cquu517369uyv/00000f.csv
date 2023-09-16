@@ -1,0 +1,4 @@
+"0","hypoxia <- hypoxia %>%"
+"0","  mutate(smoking_yesno= ifelse(smoking==1, ""Yes"", ""No""))"
+"0",""
+"0","view(hypoxia)"

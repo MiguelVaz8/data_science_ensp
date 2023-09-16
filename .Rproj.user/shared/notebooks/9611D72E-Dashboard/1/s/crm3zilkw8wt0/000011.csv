@@ -1,0 +1,4 @@
+"0","hypoxia_sum <- hypoxia %>% "
+"0","  group_by(municipality) %>% "
+"0","  summarise(iv_morphine_eq=sum(iv_morphine_eq, na.rm = TRUE)"
+"0","  )"

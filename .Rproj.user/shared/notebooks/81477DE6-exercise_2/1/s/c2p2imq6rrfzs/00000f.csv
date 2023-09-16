@@ -1,0 +1,8 @@
+"0",""
+"0","hypoxia <- read_excel(""data/hypoxia.xlsx"")"
+"0",""
+"0","View(hypoxia)"
+"0",""
+"0","hypoxia <- clean_names(hypoxia)  # este é muito importante para limpar maiusculas e assim..."
+"0",""
+"0",""
